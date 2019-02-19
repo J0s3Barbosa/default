@@ -13,6 +13,7 @@
                 txt += "<tr>"
                 txt += "<th>Name</th>"
                 txt += "<th>Email</th>"
+                txt += "<th>manager</th>"
                 txt += "<th>Password</th>"
                 txt += "<th>date_created</th>"
                 txt += "<th>Actions</th>"
@@ -25,9 +26,10 @@
                   var msgDelete = 'Delete this data?'
                   var date = data[i].date_created
       
-                  txt += "<td> <input type='text' class='form-control' id='Trophies_" + data[i]._id + "' value='" + data[i].name + "'> </td>";
-                  txt += "<td> <input type='text' class='form-control' id='Victory_" + data[i]._id + "' value='" + data[i].email + "'> </td>";
-                  txt += "<td> <input type='text' class='form-control' id='Defeat_" + data[i]._id + "' value='" + data[i].password + "'> </td>";
+                  txt += "<td> <input type='text' class='form-control' id='name_" + data[i]._id + "' value='" + data[i].name + "'> </td>";
+                  txt += "<td> <input type='text' class='form-control' id='email_" + data[i]._id + "' value='" + data[i].email + "'> </td>";
+                  txt += "<td> <input type='text' class='form-control' id='manager_" + data[i]._id + "' value='" + data[i].manager + "'> </td>";
+                  txt += "<td> <input type='text' class='form-control' id='password_" + data[i]._id + "' value='" + data[i].password + "'> </td>";
                   txt += "<td>" + date + "</td>";
                   txt += "<td><button id='btnupdate_" + data[i]._id + "' type='submit' onclick='updateCheck(event, this);'  value='" + data[i]._id + "' data-id='" + data[i]._id + "' class='btn btn-primary '  '>Save</button></td>";
                   txt += "<td><button id='btnDelete_" + data[i]._id + "' type='submit' onclick='deleteConfirmation(event, this);'  value='" + data[i]._id + "' data-id='" + data[i]._id + "' class='btn btn-danger'  '>Delete</button></td>";
@@ -106,9 +108,10 @@
           $("#formEdit").attr("action", API_DEFAULT_PATH + data_id);
           var cr_obj_updated = new Object();
           cr_obj_updated._id = data_id;
-          cr_obj_updated.Trophies = document.getElementById("Trophies_" + data_id).value;
-          cr_obj_updated.Victory = document.getElementById("Victory_" + data_id).value;
-          cr_obj_updated.Defeat = document.getElementById("Defeat_" + data_id).value;
+          cr_obj_updated.Trophies = document.getElementById("name_" + data_id).value;
+          cr_obj_updated.Victory = document.getElementById("email_" + data_id).value;
+          cr_obj_updated.Defeat = document.getElementById("manager_" + data_id).value;
+          cr_obj_updated.Defeat = document.getElementById("password_" + data_id).value;
           $.ajax({
             headers: {'Authorization': tok},
             type: 'PUT',
@@ -118,7 +121,6 @@
               var msg = 'Data Updated successfully '
               var msg_type = 'success'
               ShowMessage(msg, msg_type)
-              $("#btnCrBattledata").click()
               $("#btnLoadRefreshData").click()
             },
             error: function (request, status, error) {

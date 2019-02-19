@@ -129,6 +129,17 @@ router.put('/:id', ensureAuthenticated, (req, res) => {
 
 });
 
+router.put('/:id/manager/', ensureAuthenticated, (req, res) => {
+
+  User.findByIdAndUpdate(req.params.id, req.body, { new: true }, function (err, user) {
+    if (err) res.send(err);
+    user.manager = true
+    req.flash('success_msg', 'Data Updated!');
+    res.json(user);
+  });
+
+
+});
 
 
 module.exports = router;
